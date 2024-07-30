@@ -138,7 +138,7 @@ function getActionsJson(req, res) {
 async function getDrawPixel(req, res) {
   try {
     const payload = {
-      title: "Actions Example - Transfer Native SOL",
+      title: "Solana Pixel War",
       icon: `${BASE_URL}/api/get-image`,
       description: "Pixel War: Unite, Create, Conquer! Start to draw your pixel with community now!",
       links: {
