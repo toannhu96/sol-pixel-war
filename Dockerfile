@@ -3,6 +3,17 @@ FROM node:20-alpine
 # Create app directory
 WORKDIR /app
 
+RUN apk add --update --no-cache \
+    make \
+    g++ \
+    jpeg-dev \
+    cairo-dev \
+    giflib-dev \
+    pango-dev \
+    libtool \
+    autoconf \
+    automake
+
 # Copy package.json files to the working directory
 COPY package*.json ./
 
