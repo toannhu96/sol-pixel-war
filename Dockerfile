@@ -15,10 +15,13 @@ RUN apk add --update --no-cache \
     automake
 
 # Copy package.json files to the working directory
-COPY package*.json ./
+COPY package.json .
+COPY yarn.lock .
+ADD prisma/schema.prisma prisma/schema.prisma
+RUN corepack enable
 
 # Install app dependencies
-RUN yarn install
+RUN yarn
 
 # Copy the source files
 COPY . .
