@@ -149,7 +149,7 @@ async function getDrawPixel(req, res) {
             parameters: [
               {
                 name: "data",
-                label: `Enter the pixel. Eg: A:1:255 or A:1:red `,
+                label: `Enter value. Eg: A:1:#FF0000 or A:1:red `,
                 required: true,
               },
             ],
