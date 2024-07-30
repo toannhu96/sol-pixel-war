@@ -204,7 +204,7 @@ async function postDrawPixel(req, res) {
     const payload = await createPostResponse({
       fields: {
         transaction,
-        message: `Successfully draw pixel at ${data}`,
+        message: `Successfully draw pixel, please refresh the page to see the changes.`,
       },
       // note: no additional signers are needed
       // signers: [],
