@@ -56,7 +56,8 @@ app.get("/api/get-image", async (req, res) => {
 
     // Draw grid and ordinal numbers
     ctx.strokeStyle = "#ccc";
-    ctx.font = "10px Arial";
+    // ctx.font = "10px Arial";
+    ctx.fontSize = 10;
     ctx.fillStyle = "#000";
 
     for (let i = 0; i <= gridSize; i++) {
