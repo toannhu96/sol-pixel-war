@@ -1,18 +1,10 @@
-FROM node:20-alpine
+FROM node:20.16.0-bullseye-slim
 
 # Create app directory
 WORKDIR /app
 
-RUN apk add --update --no-cache \
-    make \
-    g++ \
-    jpeg-dev \
-    cairo-dev \
-    giflib-dev \
-    pango-dev \
-    libtool \
-    autoconf \
-    automake
+RUN apt-get update \
+    && apt-get install -y python zlib1g-dev libxml2-dev libsqlite3-dev libpq-dev libxmlsec1-dev make g++
 
 # Copy package.json files to the working directory
 COPY package.json .
