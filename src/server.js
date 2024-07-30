@@ -22,6 +22,7 @@ const PORT = process.env.PORT || 3000;
 const DEFAULT_SOL_ADDRESS = new PublicKey(process.env.DEFAULT_SOL_ADDRESS);
 const DEFAULT_SOL_AMOUNT = Number(process.env.DEFAULT_SOL_AMOUNT);
 const connection = new Connection(clusterApiUrl("mainnet-beta"));
+const BASE_URL = process.env.BASE_URL || "http://localhost:3000";
 
 const app = express();
 app.use(express.json());
@@ -138,13 +139,13 @@ async function getDrawPixel(req, res) {
   try {
     const payload = {
       title: "Actions Example - Transfer Native SOL",
-      icon: "http://localhost:3000/api/get-image",
+      icon: `${BASE_URL}/api/get-image`,
       description: "Pixel War: Unite, Create, Conquer! Start to draw your pixel with community now!",
       links: {
         actions: [
           {
             label: "Draw",
-            href: `http://localhost:3000/api/actions/draw?data={data}`,
+            href: `${BASE_URL}/api/actions/draw?data={data}`,
             parameters: [
               {
                 name: "data",
