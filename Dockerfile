@@ -4,7 +4,7 @@ FROM node:20.16.0-bullseye-slim
 WORKDIR /app
 
 RUN apt-get update \
-    && apt-get install -y python zlib1g-dev libxml2-dev libsqlite3-dev libpq-dev libxmlsec1-dev make g++
+    && apt-get install -y build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
 
 # Copy package.json files to the working directory
 COPY package.json .
