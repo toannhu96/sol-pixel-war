@@ -3,6 +3,7 @@ dotenvx.config();
 import express from "express";
 import http from "http";
 import cors from "cors";
+import morgan from "morgan";
 import { createCanvas } from "canvas";
 import { prisma } from "./services/db.js";
 import { createTerminus } from "@godaddy/terminus";
@@ -25,8 +26,10 @@ const connection = new Connection(clusterApiUrl("mainnet-beta"));
 const BASE_URL = process.env.BASE_URL || "http://localhost:3000";
 
 const app = express();
-app.use(express.json());
+app.set("trust proxy", 1);
+app.use(morgan("tiny"));
 app.use(cors(ACTIONS_CORS_HEADERS_MIDDLEWARE));
+app.use(express.json());
 
 app.get("/api/get-image", async (req, res) => {
   const imageId = Number(req.query.image || "1");
