@@ -26,6 +26,7 @@ model ImagePixel {
 model TxLog {
   id            String    @id @default(uuid())
   tx            String
+  data          String?
   createdAt     DateTime  @default(now())
 
   @@map("tx_logs")

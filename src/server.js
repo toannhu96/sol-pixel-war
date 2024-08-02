@@ -99,7 +99,7 @@ app.post("/webhook", [adminAuthMiddleware], async (req, res) => {
     const txHash = payload?.[0]?.transaction?.signatures?.[0];
     const memoLog = logs.find((log) => log.includes("Program log: Memo "));
     const match = memoLog.match(/: "([^"]+)"/);
-    if (!match) {
+    if (!match || match.length < 1) {
       console.log("Invalid input format", memoLog);
       res.status(400).json({ message: "Invalid input format" });
     }
@@ -113,7 +113,7 @@ app.post("/webhook", [adminAuthMiddleware], async (req, res) => {
     const column = parts[1];
     const color = parts[2];
 
-    await drawPixel(row, column, color, txHash);
+    await drawPixel(row, column, color, txHash, match[1]);
 
     res.json({ message: "Webhook received successfully" });
   } catch (err) {
@@ -236,7 +236,7 @@ function validatedQueryParams(query) {
   return { data: query.data };
 }
 
-async function drawPixel(x, y, color, tx, imageId = 1) {
+async function drawPixel(x, y, color, tx, rawData = "", imageId = 1) {
   if (!x || !y || !color || !tx) {
     throw new Error("Invalid input parameters");
   }
@@ -268,6 +268,7 @@ async function drawPixel(x, y, color, tx, imageId = 1) {
         data: {
           id: uuidv7(),
           tx,
+          data: rawData ? rawData : undefined,
         },
       }),
     ]);
