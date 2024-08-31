@@ -98,16 +98,20 @@ app.post("/webhook", [adminAuthMiddleware], async (req, res) => {
     const logs = payload?.[0]?.meta?.logMessages;
     const txHash = payload?.[0]?.transaction?.signatures?.[0];
     const memoLog = logs.find((log) => log.includes("Program log: Memo "));
+    if (!memoLog) {
+      console.log("No memo log found", logs);
+      return res.status(400).json({ message: "No memo log found" });
+    }
     const match = memoLog.match(/: "([^"]+)"/);
     if (!match || match.length < 1) {
       console.log("Invalid input format", memoLog);
-      res.status(400).json({ message: "Invalid input format" });
+      return res.status(400).json({ message: "Invalid input format" });
     }
 
     const parts = match[1].split(":");
     if (parts.length !== 3) {
       console.log("Invalid input format", memoLog);
-      res.status(400).json({ message: "Invalid input format" });
+      return res.status(400).json({ message: "Invalid input format" });
     }
     const row = parts[0];
     const column = parts[1];
